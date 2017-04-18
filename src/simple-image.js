@@ -7,7 +7,7 @@ import simpleImageTemplate from './simple-image.template.js'
 import takePictureModalController from './tack-picture.controller.js'
 import takePictureTemplate from './tack-picture.template.js'
 
-function simpleImage($timeout, $uibModal, $http, $rootScope, $element) {
+function simpleImage($timeout, $uibModal, $http, $rootScope, $element, $scope) {
     var ctrl = this, inputFile;
 
 
@@ -19,10 +19,6 @@ function simpleImage($timeout, $uibModal, $http, $rootScope, $element) {
     ctrl.buttonCaptureText = ctrl.buttonCaptureText || 'Tirar Foto';
     ctrl.buttonRemoveText = ctrl.buttonRemoveText || 'Remover Foto';
     ctrl.typeThumbnail = ctrl.typeThumbnail || 'circle';
-
-    ctrl.user = {
-      picture: ctrl.ngModel
-    }
 
     var getPictureDefault = () => {
         return ctrl.defaultPicture || 'resources/images/user-not-image.png';
@@ -120,9 +116,20 @@ function simpleImage($timeout, $uibModal, $http, $rootScope, $element) {
       });
     }
 
+    $scope.$watch('$ctrl.ngModel', (data) => {
+        ctrl.user = {
+          picture: ctrl.ngModel
+        }
+        if(ctrl.user.picture){
+          setPictureURLByPicture(ctrl.user.picture, true);
+        }else{
+          ctrl.user.pictureURL = getPictureDefault();
+        }
+    }, true);
+
 }
 
-simpleImage.$inject = ['$timeout', '$uibModal', '$http', '$rootScope', '$element'];
+simpleImage.$inject = ['$timeout', '$uibModal', '$http', '$rootScope', '$element', '$scope'];
 
 export default {
     bindings: {
