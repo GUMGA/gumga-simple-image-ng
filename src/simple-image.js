@@ -27,7 +27,11 @@ function simpleImage($timeout, $uibModal, $http, $rootScope, $element, $scope) {
     var setPictureURLByPicture = (picture, ignoreSave) => {
       $timeout(function(){
         if(ctrl.ngModel){
-          ctrl.user.pictureURL = 'data:' + ctrl.ngModel.mimeType + ';base64,' + ctrl.ngModel.bytes;
+            if (typeof ctrl.ngModel === 'string' && ctrl.isUrl(ctrl.ngModel)) {
+	            ctrl.user.pictureURL = ctrl.ngModel;
+            } else {
+	            ctrl.user.pictureURL = 'data:' + ctrl.ngModel.mimeType + ';base64,' + ctrl.ngModel.bytes;
+            }
         }else{
           ctrl.user.pictureURL = getPictureDefault();
         }
@@ -35,6 +39,10 @@ function simpleImage($timeout, $uibModal, $http, $rootScope, $element, $scope) {
       if(!ignoreSave)
         savePicture();
     }
+
+	ctrl.isUrl = url => {
+		return /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
+	}
 
     var savePicture = function(){
       ctrl.ngModel = ctrl.user.picture;
