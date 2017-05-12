@@ -73,7 +73,7 @@ export default `
 <img ng-src="{{$ctrl.user.pictureURL}}" class="img-responsive {{$ctrl.typeThumbnail == 'circle' ? 'img-circle' : ''}}"/>
 <input class="simple-image-file-input" type="file" style="display: none;" accept=".png, .jpg, .jpeg"/>
 <div class="dropdown gmd" align="center" style="margin-top: 15px;">
-    <button class="link gmd btn" aria-expanded="false"
+    <button type="button" class="link gmd btn" aria-expanded="false"
          style="white-space: normal;font-size: 13px;overflow: hidden;"
          data-toggle="dropdown"
          aria-haspopup="true"
