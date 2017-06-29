@@ -11,7 +11,7 @@ function simpleImage($timeout, $uibModal, $http, $rootScope, $element, $scope) {
     var ctrl = this, inputFile;
 
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
     ctrl.buttonText = ctrl.buttonText || 'Alterar Foto';
